@@ -32,25 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBarMn(
         height: 74.h,
-        isback: true,
-        leading:GestureDetector(
-          onTap: () {
-            exit(0);
-          },
-          child: Container(
-          width: 36.w,
-          height: 36.h,
-          
-          decoration: BoxDecoration(
-          color: AppColors.white,
-          shape: BoxShape.circle  ,
-          boxShadow: [
-            BoxShadow(color: AppColors.blackcolor.withOpacity(0.05),blurRadius: 13.r)
-          ]
-          ),
-          child:Center(child: AppSvg(assetName: AssetPaths.leftarrowicon,height: 24.h,width: 24.w,))
-                ),
-        ), 
         titlename: 'Messages',
 
       ),
@@ -75,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                                   
                       children: [
-                        CircleAvatar(radius: 30.r,),
+                        CircleAvatar(radius: 30.r,backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=$index'),),
                         4.hBox,
                         AppText(text: 'Patricia',weight: FontWeight.w300,size: 14.sp)
                       ],
@@ -111,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Row(
                     children: [
-                       CircleAvatar(radius: 30.r,),
+                       CircleAvatar(radius: 30.r,backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=$index')),
                        12.wBox,
                        AppText(text: 'Regina Bearden',weight: FontWeight.w600,size: 18.sp,),
                        Spacer(),

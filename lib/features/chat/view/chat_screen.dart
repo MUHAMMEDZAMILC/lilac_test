@@ -34,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             CircleAvatar(
               radius: 22.r,
+              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=0')
             ),
             AppDimensions.gapHorizontal,
             Column(
