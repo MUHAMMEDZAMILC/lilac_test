@@ -41,6 +41,7 @@ dependencies:
   provider: ^6.1.5
   japx: ^2.2.0
   fluttertoast: ^8.2.12
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

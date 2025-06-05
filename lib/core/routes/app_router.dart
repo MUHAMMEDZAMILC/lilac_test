@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lilac_test/features/home/view/home_screen.dart';
 import 'package:lilac_test/features/splash/view/splash_screen.dart';
 
 
 class RouteGenerator {
   static const String initial = '/';
+  static const String home = '/home';
 
 
 static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -15,7 +17,11 @@ static Route<dynamic> generateRoute(RouteSettings settings) {
     
     switch (settings.name) {
       case initial:
+      
         return getPageRoute(SplashScreen());
+      case home:
+      
+        return getPageRoute(HomeScreen());
 
       
       default:

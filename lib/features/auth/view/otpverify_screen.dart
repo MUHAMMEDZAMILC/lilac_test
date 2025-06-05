@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lilac_test/core/contants/app_dimensions.dart';
+import 'package:lilac_test/core/contants/app_prefconstant.dart';
+import 'package:lilac_test/core/dynamic/app_variables.dart';
 import 'package:lilac_test/core/extension/space_ext.dart';
 import 'package:lilac_test/core/helper/help_screensize.dart';
 import 'package:lilac_test/core/helper/help_toast.dart';
+import 'package:lilac_test/core/utils/sharedpref.dart';
 import 'package:lilac_test/features/auth/controller/provider/otpverify_provider.dart';
 import 'package:lilac_test/features/home/view/home_screen.dart';
 import 'package:lilac_test/shared/widgets/apprichtext.dart';
@@ -155,11 +158,25 @@ String? _validateotp(String? value) {
                 onPressed: () async{
                   if (_formKey.currentState?.validate() ?? false) {
                      var res = await context.read<OtpverifyProvider>().verifyotpfn(context, widget.number, int.parse(otpCtrl.text));
-                     if (res['status']==true) {
+                     try {
+                       if (res['status']==true) {
                        Screen.openAsNewPage(context, HomeScreen());
                      }else{
                       snackBar(context, message: 'Invalid Otp');
                      }
+                     } catch (e) {
+                      if (res['data']!=null) {
+                        await SharedPref.save(key: AppPrefConst.authkey, value: res['data']['attributes']['auth_status']['access_token']);
+                        await SharedPref.save(key: AppPrefConst.authkey, value: res['data']['id']);
+                        AppVariables.authtoken = res['data']['attributes']['auth_status']['access_token']??'';
+                        AppVariables.userid = res['data']['id']??'';
+                         Screen.openAsNewPage(context, HomeScreen());
+                      }else{
+                         snackBar(context, message: 'Invalid Otp');
+                      }
+                      
+                     }
+                     
                     } 
                 // Screen.openAsNewPage(context, HomeScreen());
               }, isValid: true,btntxt: 'Verify',)

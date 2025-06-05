@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lilac_test/core/contants/app_prefconstant.dart';
+import 'package:lilac_test/core/helper/helper_pagenavigator.dart';
 import 'package:lilac_test/core/theme/app_theme.dart';
+import 'package:lilac_test/core/utils/sharedpref.dart';
 import 'package:lilac_test/features/auth/controller/provider/loginnumber_provider.dart';
 import 'package:lilac_test/features/auth/controller/provider/otpverify_provider.dart';
+import 'package:lilac_test/features/home/view/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'core/contants/app_constants.dart';
 import 'core/routes/app_router.dart';
@@ -17,6 +21,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String initalroute ='/';
+  @override
+  void initState() {
+    SharedPref.init();
+    initpage();
+    super.initState();
+  }
+  initpage() async {
+    String? authtoken = await SharedPref.getstring(AppPrefConst.authkey);
+    String? userid = await SharedPref.getstring(AppPrefConst.useridkey);
+    if (authtoken!=null && authtoken!='' && userid!=null && userid!='') {
+     initalroute = '/home';
+     
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -46,11 +65,9 @@ class _MyAppState extends State<MyApp> {
                   title: AppConstants.appname,
                   debugShowCheckedModeBanner: false,
                    navigatorKey: navKey,
-                  initialRoute: '/',
+                  initialRoute: initalroute,
                   onGenerateRoute: RouteGenerator.generateRoute,
-                      
-                  // // Add the route observer to track navigation
-                  // navigatorObservers: [routeObserver],
+                 
                       
                   theme: AppTheme.lightTheme,
               
